@@ -1,0 +1,25 @@
+int electrodes_pin = 3;
+int pot_pin = A3;
+int output;
+int electrodes_value;
+
+void setup() {
+  pinMode(electrodes_pin, OUTPUT);
+}
+
+void loop() {
+  // Reading from potentiometer
+  output = analogRead(pot_pin);
+  // Mapping the Values between 0 to 255 because we can give output from 0 - 255 using the analogWrite function
+  electrodes_value = map(output, 0, 1023, 0, 255);
+  
+  // Turn on the electrodes with the calculated intensity
+  analogWrite(electrodes_pin, electrodes_value);
+
+  
+  delay(100); // Keep the electrostimulation pulse on for 100 milliseconds
+  
+  // Turn off the LED
+  analogWrite(electrodes_pin, 0);
+  delay(100); // Keep the electrostimulation pulse off for 100 milliseconds
+}
